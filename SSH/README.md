@@ -1,4 +1,4 @@
-# Progress rate !
+# Progress rate !!
 
 - [x] : Day 1
 - [ ] : Day 2
