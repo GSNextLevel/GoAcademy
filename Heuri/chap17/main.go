@@ -8,6 +8,14 @@ import (
 	"time"
 )
 
+const (
+	Balance       = 1000
+	EarnPoint     = 500
+	LosePoint     = 100
+	VictoryPoint  = 5000
+	GameoverPoint = 0
+)
+
 var stdin = bufio.NewReader(os.Stdin)
 
 func InputIntValue() (int, error) {
@@ -20,10 +28,8 @@ func InputIntValue() (int, error) {
 }
 
 func main() {
-	var seedMoney int = 1000
-
 	rand.Seed(time.Now().UnixNano())
-	answer := rand.Intn(5) + 1
+	balance := Balance
 
 	for {
 		fmt.Println("1 ~ 5 사이의 숫자를 입력해주세요.")
@@ -31,18 +37,21 @@ func main() {
 
 		if err != nil {
 			fmt.Println("숫자만 입력하세요.")
+		} else if n < 1 || n > 5 {
+			fmt.Println("1~5 사이의 값만 입력하세요.")
 		} else {
-			if n == answer {
-				seedMoney += 500
+			r := rand.Intn(5) + 1
+			if n == r {
+				balance += EarnPoint
 				fmt.Println("Success !")
-				if seedMoney >= 5000 {
+				if balance >= VictoryPoint {
 					fmt.Println("Win !")
 					break
 				}
 			} else {
-				seedMoney -= 500
+				balance -= LosePoint
 				fmt.Println("Fail !")
-				if seedMoney <= 0 {
+				if balance <= GameoverPoint {
 					fmt.Println("Lose !")
 					break
 				}
